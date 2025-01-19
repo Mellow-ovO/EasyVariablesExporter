@@ -23,6 +23,7 @@ bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasy
 	
 	OutParamsMap.ObjectClass = ObjectClass;
 	FString ClassDesc = ObjectClass->GetMetaData("ToolTip");
+	OutParamsMap.Comment = ClassDesc;
 	for(TFieldIterator<FProperty> It(ObjectClass,EFieldIteratorFlags::IncludeSuper); It ; ++It)
 	{
 		bool bNeedExport = ShouldPropertyExport(*It);

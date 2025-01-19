@@ -36,10 +36,10 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterEnumParam
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, meta=(Tooltips = "类型"))
+	UPROPERTY(VisibleAnywhere, meta=(Tooltip = "类型"))
 	FString ENumType;
 
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(Tooltips = "值"))
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(Tooltip = "值"))
 	FString ENumValue;
 
 	FEasyExporterEnumParam()
@@ -136,7 +136,7 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParam
 	
 
 #if WITH_EDITORONLY_DATA
-	UPROPERTY(EditAnywhere,meta=(Tooltips = "备注"))
+	UPROPERTY(EditAnywhere,meta=(Tooltip = "备注"))
 	FString Comment;
 #endif
 
@@ -207,7 +207,7 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParamsMap
 	GENERATED_BODY()
 
 #if WITH_EDITORONLY_DATA
-	UPROPERTY(EditAnywhere,meta=(Tooltips = "备注"))
+	UPROPERTY(EditAnywhere,meta=(Tooltip = "备注"))
 	FString Comment;
 
 	UPROPERTY(VisibleAnywhere)
