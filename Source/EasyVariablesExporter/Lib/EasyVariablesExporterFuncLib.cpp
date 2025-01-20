@@ -7,6 +7,7 @@
 
 bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasyExporterParamsMap& OutParamsMap)
 {
+#if WITH_EDITOR
 	if(Object == nullptr || !Object->GetClass()->HasAnyFlags(RF_WasLoaded) || Object->GetClass()->HasAnyFlags(RF_Transient))
 	{
 		return false;
@@ -57,14 +58,14 @@ bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasy
 	}
 	
 	return true;
+#endif
+	
+	return false;
 }
 
 bool UEasyVariablesExporterFuncLib::ImportParamToObject(const FEasyExporterParamsMap& ParamsMap)
 {
-#if !WITH_EDITOR
-	return false;
-#endif
-	
+#if WITH_EDITOR
 	if(!IsValid(ParamsMap.ObjectClass))
 	{
 		return false;
@@ -111,6 +112,9 @@ bool UEasyVariablesExporterFuncLib::ImportParamToObject(const FEasyExporterParam
 		TRY_IMPORT_PARAM(Structure)
 	}
 	return true;
+#endif
+
+	return false;
 }
 
 UObject* UEasyVariablesExporterFuncLib::GetClassDefaultObject(TSubclassOf<UObject> InClass)
@@ -124,6 +128,8 @@ UObject* UEasyVariablesExporterFuncLib::GetClassDefaultObject(TSubclassOf<UObjec
 
 bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const UObject* Owner, const FProperty* Property)
 {
+	
+#if WITH_EDITOR
 	if(Property == nullptr)
 	{
 		return false;
@@ -140,6 +146,9 @@ bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const UObject* Owner, c
 		bShouldExport |= It.Value(Owner, Property);
 	}
 	return bShouldExport;
+#endif
+	
+	return false;
 }
 
 bool UEasyVariablesExporterFuncLib::ExportEnumerateProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam)
