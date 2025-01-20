@@ -3,6 +3,8 @@
 
 #include "EasyVariablesExporterFuncLib.h"
 
+#include "EasyVariablesExporter/EasyVariablesExporter.h"
+
 bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasyExporterParamsMap& OutParamsMap)
 {
 	if(Object == nullptr || !Object->GetClass()->HasAnyFlags(RF_WasLoaded) || Object->GetClass()->HasAnyFlags(RF_Transient))
@@ -27,7 +29,6 @@ bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasy
 	for(TFieldIterator<FProperty> It(ObjectClass,EFieldIteratorFlags::IncludeSuper); It ; ++It)
 	{
 		bool bNeedExport = ShouldPropertyExport(*It);
-		// Insert Other Rules To Export
 		if(!bNeedExport)
 		{
 			continue;
@@ -127,7 +128,18 @@ bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const FProperty* Proper
 	{
 		return false;
 	}
-	return Property->HasMetaData(FEasyVariablesExporterMetadata::MD_VariableNeedExport);
+	bool bShouldExport = Property->HasMetaData(FEasyVariablesExporterMetadata::MD_VariableNeedExport);
+	FEasyVariablesExporterModule& EasyVariablesExporterModule = FModuleManager::LoadModuleChecked<FEasyVariablesExporterModule>("EasyVariablesExporter");
+	const TMap<FString, FCustomNeedExportFunc>& CustomNeedExportMap = EasyVariablesExporterModule.GetCustomNeedExportMap();
+	for(const auto& It : CustomNeedExportMap)
+	{
+		if(bShouldExport)
+		{
+			break;
+		}
+		bShouldExport |= It.Value(Property);
+	}
+	return bShouldExport;
 }
 
 bool UEasyVariablesExporterFuncLib::ExportEnumerateProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam)
