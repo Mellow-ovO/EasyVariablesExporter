@@ -16,6 +16,7 @@ class EASYVARIABLESEXPORTER_API UEasyVariablesExporterFuncLib : public UBlueprin
 {
 	GENERATED_BODY()
 
+public:
 	UFUNCTION(BlueprintCallable)
 	static bool ExportParamFromObject(UObject* Object, FEasyExporterParamsMap& OutParamsMap);
 
@@ -25,6 +26,7 @@ class EASYVARIABLESEXPORTER_API UEasyVariablesExporterFuncLib : public UBlueprin
 	UFUNCTION(BlueprintPure,meta=(DeterminesOutputType = "InClass"))
 	static UObject* GetClassDefaultObject(TSubclassOf<UObject> InClass);
 
+protected:
 	static bool ShouldPropertyExport(const FProperty* Property);
 
 	static bool ExportEnumerateProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam);
