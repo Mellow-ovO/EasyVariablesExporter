@@ -158,7 +158,7 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParam
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(EditCondition = "ParamType == EParamType::Vector",EditConditionHides))
 	FVector VectorValue = FVector::ZeroVector;
 
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(EditCondition = "ParamType == EParamType::Structure",EditConditionHides))
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(EditCondition = "ParamType == EParamType::Structure",EditConditionHides,StructTypeConst))
 	FInstancedStruct StructureValue;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(EditCondition = "ParamType == EParamType::Name",EditConditionHides))
