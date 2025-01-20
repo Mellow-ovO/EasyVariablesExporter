@@ -215,6 +215,6 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParamsMap
 #endif
 
 	/* Key: Param Name; Value: Param Value*/
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,EditFixedSize,meta=(ReadOnlyKeys))
 	TMap<FString,FEasyExporterParam> ParamsMap;
 };
