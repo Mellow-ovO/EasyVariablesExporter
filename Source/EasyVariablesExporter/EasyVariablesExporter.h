@@ -6,7 +6,7 @@
 #include "Modules/ModuleManager.h"
 
 
-typedef TFunction< bool(const FProperty*) > FCustomNeedExportFunc;
+typedef TFunction< bool(const UObject*, const FProperty*) > FCustomNeedExportFunc;
 
 class FEasyVariablesExporterModule : public IModuleInterface
 {

@@ -28,7 +28,7 @@ bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasy
 	OutParamsMap.Comment = ClassDesc;
 	for(TFieldIterator<FProperty> It(ObjectClass,EFieldIteratorFlags::IncludeSuper); It ; ++It)
 	{
-		bool bNeedExport = ShouldPropertyExport(*It);
+		bool bNeedExport = ShouldPropertyExport(Object, *It);
 		if(!bNeedExport)
 		{
 			continue;
@@ -122,7 +122,7 @@ UObject* UEasyVariablesExporterFuncLib::GetClassDefaultObject(TSubclassOf<UObjec
 	return nullptr;
 }
 
-bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const FProperty* Property)
+bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const UObject* Owner, const FProperty* Property)
 {
 	if(Property == nullptr)
 	{
@@ -137,7 +137,7 @@ bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const FProperty* Proper
 		{
 			break;
 		}
-		bShouldExport |= It.Value(Property);
+		bShouldExport |= It.Value(Owner, Property);
 	}
 	return bShouldExport;
 }

@@ -27,7 +27,7 @@ public:
 	static UObject* GetClassDefaultObject(TSubclassOf<UObject> InClass);
 
 protected:
-	static bool ShouldPropertyExport(const FProperty* Property);
+	static bool ShouldPropertyExport(const UObject* Owner, const FProperty* Property);
 
 	static bool ExportEnumerateProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam);
 	static bool ExportBooleanProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam);

@@ -217,4 +217,39 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParamsMap
 	/* Key: Param Name; Value: Param Value*/
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,EditFixedSize,meta=(ReadOnlyKeys))
 	TMap<FString,FEasyExporterParam> ParamsMap;
+
+	bool operator==(const FEasyExporterParamsMap& Other) const
+	{
+#if WITH_EDITORONLY_DATA
+		if(Comment != Other.Comment)
+		{
+			return false;
+		}
+
+		if(ObjectClass != Other.ObjectClass)
+		{
+			return false;
+		}
+#endif
+		TSet<FString> ParamKeys;
+		TSet<FString> TempParamKeys;
+		ParamsMap.GetKeys(TempParamKeys);
+		ParamKeys.Append(TempParamKeys);
+		Other.ParamsMap.GetKeys(TempParamKeys);
+		ParamKeys.Append(TempParamKeys);
+		for(const FString& It : ParamKeys)
+		{
+			const FEasyExporterParam* SelfValue = ParamsMap.Find(It);
+			const FEasyExporterParam* OtherValue = Other.ParamsMap.Find(It);
+			if(SelfValue == nullptr || OtherValue == nullptr)
+			{
+				return false;
+			}
+			if(!SelfValue->Equals(*OtherValue))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 };
