@@ -58,9 +58,12 @@ bool UEasyVariablesExporterFuncLib::ExportParamFromObject(UObject* Object, FEasy
 	}
 	
 	return true;
+
+#else
+	return false;
+	
 #endif
 	
-	return false;
 }
 
 bool UEasyVariablesExporterFuncLib::ImportParamToObject(const FEasyExporterParamsMap& ParamsMap)
@@ -112,9 +115,9 @@ bool UEasyVariablesExporterFuncLib::ImportParamToObject(const FEasyExporterParam
 		TRY_IMPORT_PARAM(Structure)
 	}
 	return true;
-#endif
-
+#else
 	return false;
+#endif
 }
 
 UObject* UEasyVariablesExporterFuncLib::GetClassDefaultObject(TSubclassOf<UObject> InClass)
@@ -146,9 +149,10 @@ bool UEasyVariablesExporterFuncLib::ShouldPropertyExport(const UObject* Owner, c
 		bShouldExport |= It.Value(Owner, Property);
 	}
 	return bShouldExport;
+#else
+	return false;
 #endif
 	
-	return false;
 }
 
 bool UEasyVariablesExporterFuncLib::ExportEnumerateProperty(UObject* Object, const FProperty* Property, FEasyExporterParam& OutParam)
