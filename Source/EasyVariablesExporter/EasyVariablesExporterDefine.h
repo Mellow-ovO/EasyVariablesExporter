@@ -215,7 +215,7 @@ struct EASYVARIABLESEXPORTER_API FEasyExporterParamsMap
 #endif
 
 	/* Key: Param Name; Value: Param Value*/
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,EditFixedSize,meta=(ReadOnlyKeys))
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,EditFixedSize,meta=(ReadOnlyKeys,TitleProperty="Comment"))
 	TMap<FString,FEasyExporterParam> ParamsMap;
 
 	bool operator==(const FEasyExporterParamsMap& Other) const
