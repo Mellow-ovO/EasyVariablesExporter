@@ -6,9 +6,16 @@
 
 ## 使用方法
 1. 只需要把需要导出的变量的NeedExport属性打勾，然后即可通过函数自动导出导入
+   变量和蓝图的 Description 会被导出为Comment
 <p align = "center">
-   <img src = "Resources/1.png" height = 200>
+   <img src = "Resources/1.png" height = 400>
    </p>
+   C++中通过给变量标记 VariableNeedExport 的 MetaData来标记导出
+
+   ```
+   UPROPERTY(meta = "VariableNeedExport")
+   int32 Param = 0;
+   ```
 
 2. 使用函数库函数导入导出
 
@@ -27,5 +34,5 @@ UEasyVariablesExporterFuncLib::ImportParamToObject
 
 导出后格式如下
 <p align = "center">
-   <img src = "Resources/2.png" height = 200>
+   <img src = "Resources/2.png" height = 600>
    </p>
